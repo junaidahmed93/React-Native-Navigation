@@ -1,3 +1,5 @@
+import { TabNavigator } from "react-navigation";
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -8,21 +10,21 @@ import {
 import { StackNavigator } from 'react-navigation';
 import App from './app/app';
 import ChatScreen from './app/component/Chat';   
+import RecentChatsScreen from './app/component/tabComponent/RecentChat';
+import AllContactsScreen from './app/component/tabComponent/AllContacts';
 
 
 
-// class HomeScreen extends React.Component {
-//   static navigationOptions = {
-//     title: 'Welcome',
-//   };
-//   render() { 
-//     return <Text>Hello, Navigation!</Text>; 
-//   } 
-// }  
-  
-const SimpleApp = StackNavigator({
-  App: { screen: App },  
-  ChatScreen: { screen: ChatScreen}
+
+const MainScreenNavigator = TabNavigator({
+  Recent: { screen: RecentChatsScreen },
+  All: { screen: AllContactsScreen },
 });
 
-AppRegistry.registerComponent('people', () => SimpleApp);
+  
+// const SimpleApp = StackNavigator({
+//   App: { screen: App },  
+//   ChatScreen: { screen: ChatScreen}
+// });
+
+AppRegistry.registerComponent('people', () => MainScreenNavigator);

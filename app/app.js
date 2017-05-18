@@ -3,6 +3,7 @@ import { Text, View, Button } from 'react-native';
 import { LoginForm } from './component/LoginForm';
 
 import { StackNavigator } from 'react-navigation';
+import { TabNavigator} from 'react-navigation';
 
 export default class App extends React.Component {
     static navigationOptions = {
