@@ -3,65 +3,64 @@ import { TabNavigator } from "react-navigation";
 import React from 'react';
 import { AppRegistry, Text, View, Button } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { DrawerNavigator } from 'react-navigation';
 import ChatScreen from './app/component/ChatScreen';
-class HomeScreen extends React.Component {
+class MyHomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Welcome',
+    drawerLabel: 'Home',
+    /*drawerIcon: ({ tintColor }) => (
+      <Image
+        source={require('./chats-icon.png')}
+        style={[styles.icon, { tintColor: tintColor }]}
+      />
+    ),*/  
   };
+
   render() {
-    const { navigate } = this.props.navigation;
     return (
-      <View>
-        <Text>Hello, Chat App!</Text>
-        <Button
-          onPress={() => navigate('Chat', { user: 'LUCKY' })}
-          title="Chat with Lucy"
-        />
-      </View>
+      <Button
+        onPress={() => this.props.navigation.navigate('Notifications')}
+        title="Go to notifications"
+      />
     );
   }
 }
 
-class RecentChatsScreen extends React.Component {
-  render() {
-    return <View>
-      <Text>List of recent chats</Text>
-      <Button
-        onPress={() => this.props.navigation.navigate('Chat', { user: 'Lucy' })}
-        title="Chat with Lucy"
+class MyNotificationsScreen extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'Notifications',
+    /*drawerIcon: ({ tintColor }) => (
+      <Image
+        source={require('./chats-icon.png')}
+        style={[styles.icon, { tintColor: tintColor }]}
       />
-    </View>
+    ),*/
+  };
 
-
+  render() {
+    return (
+      <Button
+        onPress={() => this.props.navigation.goBack()}
+        title="Go back home"
+      />
+    );
   }
 }
 
-class AllContactsScreen extends React.Component {
-  render() {
-    return <View>
-      <Text>List of all contacts</Text>
-      <Button
-        onPress={() => this.props.navigation.navigate('Chat', { user: 'Lucy' })}
-        title="Chat with Lucy"
-      />
-    </View>
-  }
-}
+// const styles = StyleSheet.create({
+//   icon: {
+//     width: 24,
+//     height: 24,
+//   },
+// });
 
-// Tabs Navigation show tab in page
-const MainScreenNavigator = TabNavigator({
-  Recent: { screen: RecentChatsScreen },
-  All: { screen: AllContactsScreen },
+const MyApp = DrawerNavigator({
+  Home: {
+    screen: MyHomeScreen,
+  },
+  Notifications: {
+    screen: MyNotificationsScreen,
+  },
 });
 
-// The Stack Navigation Show Main pages
-const SimpleApp = StackNavigator({
-  Home: { screen: MainScreenNavigator },
-  Chat: { screen: ChatScreen },
-});
-
-MainScreenNavigator.navigationOptions = {
-  title: 'My Chats'
-}
-
-AppRegistry.registerComponent('people', () => SimpleApp);
+AppRegistry.registerComponent('people', () => MyApp);
