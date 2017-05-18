@@ -1,30 +1,67 @@
 import { TabNavigator } from "react-navigation";
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React from 'react';
+import { AppRegistry, Text, View, Button } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import App from './app/app';
-import ChatScreen from './app/component/Chat';   
-import RecentChatsScreen from './app/component/tabComponent/RecentChat';
-import AllContactsScreen from './app/component/tabComponent/AllContacts';
+import ChatScreen from './app/component/ChatScreen';
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View>
+        <Text>Hello, Chat App!</Text>
+        <Button
+          onPress={() => navigate('Chat', { user: 'LUCKY' })}
+          title="Chat with Lucy"
+        />
+      </View>
+    );
+  }
+}
+
+class RecentChatsScreen extends React.Component {
+  render() {
+    return <View>
+      <Text>List of recent chats</Text>
+      <Button
+        onPress={() => this.props.navigation.navigate('Chat', { user: 'Lucy' })}
+        title="Chat with Lucy"
+      />
+    </View>
 
 
+  }
+}
 
+class AllContactsScreen extends React.Component {
+  render() {
+    return <View>
+      <Text>List of all contacts</Text>
+      <Button
+        onPress={() => this.props.navigation.navigate('Chat', { user: 'Lucy' })}
+        title="Chat with Lucy"
+      />
+    </View>
+  }
+}
 
+// Tabs Navigation show tab in page
 const MainScreenNavigator = TabNavigator({
   Recent: { screen: RecentChatsScreen },
   All: { screen: AllContactsScreen },
 });
 
-  
-// const SimpleApp = StackNavigator({
-//   App: { screen: App },  
-//   ChatScreen: { screen: ChatScreen}
-// });
+// The Stack Navigation Show Main pages
+const SimpleApp = StackNavigator({
+  Home: { screen: MainScreenNavigator },
+  Chat: { screen: ChatScreen },
+});
 
-AppRegistry.registerComponent('people', () => MainScreenNavigator);
+MainScreenNavigator.navigationOptions = {
+  title: 'My Chats'
+}
+
+AppRegistry.registerComponent('people', () => SimpleApp);
