@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View,  } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 
 
@@ -12,7 +12,8 @@ export class Home extends Component {
     render() {
         return ( 
             <View>
-                <Text>Welcome to the Home</Text>                      
+                <Text>Welcome to the Home </Text>      
+                <TouchableOpacity ><Text>Click Me</Text></TouchableOpacity>        
             </View>
         )
     }
